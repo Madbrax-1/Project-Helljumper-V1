@@ -1,0 +1,15 @@
+[Unit]
+Description=Project Helljumper RTSP Camera Stream
+After=network.target
+
+[Service]
+Type=simple
+User=hud
+WorkingDirectory=/home/hud
+ExecStartPre=/bin/sleep 2
+ExecStart=/bin/bash -c "/usr/local/bin/mediamtx & sleep 1; /usr/bin/rpicam-vid -t 0 --inline --width 1280 --height 720 --framerate 30 --codec h264 -o - | /usr/bin/ffmpeg -re -i - -c:v copy -f rtsp rtsp://localhost:8554/helmet_cam"
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

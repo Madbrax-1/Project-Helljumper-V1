@@ -1,0 +1,15 @@
+[Unit]
+Description=Project Helljumper Triple-Display HUD Daemon
+After=network.target helljumper-cam.service
+
+[Service]
+Type=simple
+User=hud
+WorkingDirectory=/home/hud
+ExecStartPre=/bin/sleep 3
+ExecStart=/usr/bin/python3 /home/hud/master_hud.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
